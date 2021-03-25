@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ event.name }}
+{% endblock %}
+
+{% block head %}
+<div class="jumbotron">
+  <div class="container">
+    <div class="col-md-9">
+      <h2>{{ event.name }}</h2>
+      <p style="font-size: 16px">description descriptiondescriptiondescriptiondescriptiondescription</p>
+      {% if event.address %}
+      <p style="font-size: 16px">事件更新时间：{{ event.updated }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-8">
+  <ul class="nav nav-tabs">
+      <li role="presentation" class="{% if panel == 'about' %}active{% endif %}">
+        <a href="{{ url_for('event.detail', event_id=event.id) }}">组织介绍</a>
+      </li>
+      <li role="presentation" class="{% if panel == 'jobs' %}active{% endif %}">
+        <a href="{{ url_for('event.detail', event_id=event.id, job='job') }}">事件参与成员</a>
+      </li>
+  </ul>
+    {% if panel == 'about' %}
+      <div class="event-detail">
+      description descriptiondescriptiondescriptiondescriptiondescription
+      </div>
+    {% else %}
+      <ul class="company-detail list-group">
+          <h>事件参与成员</h>
+      </ul>
+
+      {% endif %}
+</div>
+<div class="col-md-4">
+    <h4>事件基本信息</h4>
+
+ <p>事件名称：{{ event.name }}</p>
+    <p>时间：{{ event.created }}</p>
+
+<p>状态：{{ event.status }}</p>
+<p>当地时间：{{ event.local_date }}</p>
+<p>所属组织名字：{{ event.group_name }}</p>
+<p>参与成员数：{{ event.attendance_count }}</p>
+<p>时间：{{ event.created }}</p>
+<p>时间：{{ event.created }}</p>
+
+    {% if event.link %}
+      <p>meetup网站：<a href="{{ event.link }}">{{ event.link }}</a></p>
+    {% endif %}
+</div>
+{% endblock %}

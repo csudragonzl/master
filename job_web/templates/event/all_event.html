@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% from "macros.html" import render_event, render_pagination %}
+
+{% block title %}全部事件{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+  <h4>全部事件（使用搜索框）</h4>
+</div>
+
+{% if pagination.total == 0 %}
+    <div align="center" >
+      <img src="{{ url_for('static', filename='images/no_job.png') }}" width="200">
+      <h3>查无职位</h3>
+    </div>
+{% endif %}
+<div class="job_list">
+    {% for event in pagination.items %}
+        {{ render_event(event) }}
+    {% endfor %}
+</div>
+{{ render_pagination(pagination, 'event.index', kw=kw) }}
+{% endblock %}

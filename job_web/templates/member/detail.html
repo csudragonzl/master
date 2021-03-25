@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ member.name }}
+{% endblock %}
+
+{% block head %}
+<div class="jumbotron">
+  <div class="container">
+    <div class="col-md-9">
+      <h2>{{ member.name }}</h2>
+      {% if member.city %}
+      <p style="font-size: 16px">所在城市：{{ member.city }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-4">
+    <h4>成员基本信息</h4>
+    <p>时间：{{ member.joined }}</p>
+ <p>成员名字：{{ member.name }}</p>
+   <p>成员状态：{{ member.status }}</p>
+ <p>成员城市：{{ member.city }}</p>
+ <p>成员国家：{{ member.country }}</p>
+</div>
+{% endblock %}

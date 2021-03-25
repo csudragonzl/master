@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% from "macros.html" import render_company, render_job ,render_group,render_event,render_member%}
+
+{% block title %}主页{% endblock %}
+
+{% block head %}
+<div class="jumbotron">
+  <div class="container">
+    <h3>Meetup是一个在线社交网站，它拥有世界各地下线小组群体。网站允许成员找到并加入共同利益的群体，用户只要输入所在的邮政编码或城市和他们想
+        见面的话题，网站就可以帮助他们安排一个时间和地点见面。本平台主要是分析meetup网站上的生物黑客相关数据。 </h3>
+      <p><a class="btn btn-primary btn-lg" href="https://meetup.com" role="button">链接meetup平台</a></p>
+  </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<ul class="nav nav-tabs list-title">
+  <li role="presentation" class="active">
+    <a href="#">生物事件</a>
+  </li>
+</ul>
+
+<div class="job-list">
+  {% for event in events %}
+    {{ render_event(event) }}
+  {% endfor %}
+</div>
+
+<p class="list-more">
+  <a href="{{ url_for('event.index') }}" class="btn btn-success btn-lg list-more-btn">
+    查看更多
+  </a>
+</p>
+
+<ul class="nav nav-tabs list-title">
+  <li role="presentation" class="active">
+    <a href="#">生物组织</a>
+  </li>
+</ul>
+
+<div class="company-list">
+  {% for group in groups %}
+    {{ render_group(group) }}
+  {% endfor %}
+</div>
+
+<p class="list-more">
+  <a href="{{ url_for('group.index') }}" class="btn btn-success btn-lg list-more-btn">
+    查看更多
+  </a>
+</p>
+
+
+<ul class="nav nav-tabs list-title">
+  <li role="presentation" class="active">
+    <a href="#">生物黑客成员</a>
+  </li>
+</ul>
+
+<div class="company-list">
+  {% for member in members %}
+    {{ render_member(member) }}
+  {% endfor %}
+</div>
+
+<p class="list-more">
+  <a href="{{ url_for('member.index') }}" class="btn btn-success btn-lg list-more-btn">
+    查看更多
+  </a>
+</p>
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ job.name }}
+{% endblock %}
+
+{% block head %}
+<div class="jumbotron">
+  <div class="container">
+    <div class="col-md-8">
+      <h2 style="padding-bottom: 16px">{{ job.name }}</h2>
+      <p>
+          <span class="job-salary" style="font-size: 18px">参与人数:{{ job.salary_min }}
+          </span>
+          <br>事件状态:{{ job.education }}
+      </p>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block body %}
+<div class="col-md-8">
+  <div class="job-detail">
+    <h4>事件发生时间</h4>
+    <p>{{ job.treatment | safe }}</p>
+      <h4>发生地址</h4>
+    <p>{{ job.city }}</p>
+    <h4>事件描述</h4>
+    <p>{{ job.description | safe }}</p>
+
+  </div>
+</div>
+<div class="col-md-3">
+  <div class="thumbnail">
+    <a href="{{ url_for('company.detail', company_id=job.company.id) }}">
+        <h2>组织信息</h2>
+    </a>
+  </div>
+
+  <h4>{{ job.company.name }}</h4>
+  <p>时间：{{ job.company.field }}</p>
+  <p>城市：{{ job.city }}</p>
+  <p>链接：
+    {% if job.company.website %}
+    <a href="{{ job.company.website }}">
+        {{ job.company.website }}
+    </a>
+    {% else %}
+        暂无
+    {% endif %}
+  </p>
+</div>
+{% endblock %}

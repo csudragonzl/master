@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ group.name }}
+{% endblock %}
+
+{% block head %}
+<div class="jumbotron">
+  <div class="container">
+    <div class="col-md-9">
+      <h2>{{ group.name }}</h2>
+      {% if group.city %}
+      <p style="font-size: 16px">所在城市：{{ group.city }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="col-md-8">
+  <ul class="nav nav-tabs">
+      <li role="presentation" class="{% if panel == 'about' %}active{% endif %}">
+        <a href="{{ url_for('group.detail', group_id=group.id) }}">组织介绍</a>
+      </li>
+      <li role="presentation" class="{% if panel == 'events' %}active{% endif %}">
+        <a href="{{ url_for('group.detail', group_id=group.id, event='event') }}">组织事件({{ group.enabled_events().count() }})</a>
+      </li>
+  </ul>
+    {% if panel == 'about' %}
+      <div class="group-detail">
+        {{ group.description | safe }}
+      </div>
+    {% else %}
+      <ul class="company-detail list-group">
+        {% for event in pagination.items %}
+          <li class="job-item list-group-item">
+            <a href="{{ url_for('event.detail', event_id=event.id) }}">
+            <div class="item-title">{{ event.name }}</div>
+            <p>
+              <span class="job-salary">{{ event.attendance_count }}人</span>
+              <span class="job-meta">&nbsp;&nbsp;{{ event.created }}时间 </span>
+            </p>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+      {% if pagination.pages > 1 %}
+        <nav class="nav-pagination" aria-label="Page navigation">
+          <ul class="pagination">
+            {% if pagination.has_prev %}
+                <li><a href="{{url_for('group.detail', page=pagination.prev_num, group_id=group.id, event='event' ) }}">&laquo;</a></li>
+            {% endif %}
+              {% for page in pagination.iter_pages() %}
+                {% if page %}
+                  {% if page != pagination.page %}
+                  <li><a href="{{ url_for('group.detail', page=page, group_id=group.id, event='event') }}">{{ page }}</a></li>
+                  {% else %}
+                  <li class="active"><a class="disabled">{{page}} <span class="sr-only">(current)</span></a></li>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            {% if pagination.has_next %}
+                <li><a href="{{url_for('group.detail', page=pagination.next_num, group_id=group.id, event='event') }}">&raquo;</a>  </li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+      {% endif %}
+</div>
+<div class="col-md-4">
+    <h4>组织基本信息</h4>
+    <p>时间：{{ group.created }}</p>
+
+    {% if group.link %}
+      <p>meetup网站：<a href="{{ group.link }}">{{ group.link }}</a></p>
+    {% endif %}
+</div>
+{% endblock %}
