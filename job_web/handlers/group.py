@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import Blueprint, render_template, abort,\
-    current_app, request
+    current_app, request, jsonify
 from flask_login import current_user
 from ..models import Group
 from sqlalchemy import func,extract
@@ -27,8 +27,6 @@ def index():
     if fenxi is not None and fenxi != '':
         return render_template('group/index.html',pagination=pagination, kw=kw, active='group')
     return render_template('group/all_group.html', pagination=pagination, kw=kw, active='group')
-
-
 
 
 @group.route('/<int:group_id>')
@@ -95,3 +93,34 @@ def growthTrend(conn=conn_db()):
 def group_address(conn=conn_db()):
     return render_template('group/group_address.html')
     # return render_template('group/event2.html')
+
+
+@group.route('/group_analysis', methods=['GET', 'POST'])
+def group_analysis():
+    group_list = Group.query.all()
+    country_count = {}
+    category_count = {}
+    for group in group_list:
+        if group.country in country_count:
+            country_count[group.country] += 1
+        else:
+            country_count[group.country] = 1
+        if group.category_name in category_count:
+            category_count[group.category_name] += 1
+        else:
+            category_count[group.category_name] = 1
+
+    country_list = []
+    country_counts_list = []
+    for country, counts in country_count.items():
+        if counts > 1:
+            country_list.append(country)
+            country_counts_list.append(str(counts))
+    category_list = []
+    category_counts_list = []
+    for category, counts in category_count.items():
+        if counts > 1:
+            category_list.append(category)
+            category_counts_list.append(str(counts))
+    return jsonify({'country_list': country_list, 'country_counts_list': country_counts_list,
+                    'category_list': category_list, 'category_counts_list': category_counts_list})

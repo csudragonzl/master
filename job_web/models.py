@@ -26,9 +26,9 @@ class Base(db.Model):
     def __repr__(self):
         return '<{}: {}>'.format(self.__class__.__name__, self.name)
 
+
 class Base1(db.Model):
     __abstract__ = True
-
 
     def __repr__(self):
         return '<{}: {}>'.format(self.__class__.__name__, self.name)
