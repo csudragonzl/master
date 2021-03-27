@@ -23,7 +23,8 @@ def index():
     if kw is not None and kw != '':
         flt.update({Group.name.ilike('%{}%'.format(kw))})
     pagination = Group.query.filter(*flt).paginate(
-        page=page, per_page=current_app.config['GROUP_INDEX_PER_PAGE'], error_out=False)
+        # current_app.config['GROUP_INDEX_PER_PAGE']
+        page=page, per_page=8, error_out=False)
     if fenxi is not None and fenxi != '':
         return render_template('group/index.html',pagination=pagination, kw=kw, active='group')
     return render_template('group/all_group.html', pagination=pagination, kw=kw, active='group')
@@ -37,7 +38,8 @@ def detail(group_id):
     if request.args.get('event'):
             page = request.args.get('page', default=1, type=int)
             pagination = group_obj.enabled_events().paginate(
-                page=page, per_page=current_app.config['GROUP_DETAIL_PER_PAGE'], error_out=False)
+                # current_app.config['GROUP_DETAIL_PER_PAGE']
+                page=page, per_page=8, error_out=False)
             return render_template('group/detail.html', pagination=pagination, panel='events', group=group_obj)
     return render_template('group/detail.html', group=group_obj, panel='about', active='detail')
 

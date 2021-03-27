@@ -14,62 +14,70 @@
 {% endblock %}
 
 {% block body %}
-<ul class="nav nav-tabs list-title">
-  <li role="presentation" class="active">
-    <a href="#">生物事件</a>
-  </li>
-</ul>
+{#<ul class="nav nav-tabs list-title">#}
+{#  <li role="presentation" class="active">#}
+{#    <a href="#">生物事件</a>#}
+{#  </li>#}
+{#</ul>#}
+{##}
+{#<div class="job-list">#}
+{#  {% for event in events %}#}
+{#    {{ render_event(event) }}#}
+{#  {% endfor %}#}
+{#</div>#}
+{##}
+{#<p class="list-more">#}
+{#  <a href="{{ url_for('event.index') }}" class="btn btn-success btn-lg list-more-btn">#}
+{#    查看更多#}
+{#  </a>#}
+{#</p>#}
+{##}
+{#<ul class="nav nav-tabs list-title">#}
+{#  <li role="presentation" class="active">#}
+{#    <a href="#">生物组织</a>#}
+{#  </li>#}
+{#</ul>#}
+{##}
+{#<div class="company-list">#}
+{#  {% for group in groups %}#}
+{#    {{ render_group(group) }}#}
+{#  {% endfor %}#}
+{#</div>#}
+{##}
+{#<p class="list-more">#}
+{#  <a href="{{ url_for('group.index') }}" class="btn btn-success btn-lg list-more-btn">#}
+{#    查看更多#}
+{#  </a>#}
+{#</p>#}
+{##}
+{##}
+{#<ul class="nav nav-tabs list-title">#}
+{#  <li role="presentation" class="active">#}
+{#    <a href="#">生物黑客成员</a>#}
+{#  </li>#}
+{#</ul>#}
+{##}
+{#<div class="company-list">#}
+{#  {% for member in members %}#}
+{#    {{ render_member(member) }}#}
+{#  {% endfor %}#}
+{#</div>#}
+{##}
+{#<p class="list-more">#}
+{#  <a href="{{ url_for('member.index') }}" class="btn btn-success btn-lg list-more-btn">#}
+{#    查看更多#}
+{#  </a>#}
+{#</p>#}
 
-<div class="job-list">
-  {% for event in events %}
-    {{ render_event(event) }}
-  {% endfor %}
+<div class="panel panel-default col-md-3">
+  <h4 class="panel-heading heading">主题</h4>
+  <div class="list-group panel-body">
+    <a href="{{ url_for('group.index') }}" class="list-group-item">DIYBIO</a >
+    <a href="" class="list-group-item"></a >
+    <a href="" class="list-group-item"></a >
+    <a href="" class="list-group-item"></a >
+  </div>
 </div>
-
-<p class="list-more">
-  <a href="{{ url_for('event.index') }}" class="btn btn-success btn-lg list-more-btn">
-    查看更多
-  </a>
-</p>
-
-<ul class="nav nav-tabs list-title">
-  <li role="presentation" class="active">
-    <a href="#">生物组织</a>
-  </li>
-</ul>
-
-<div class="company-list">
-  {% for group in groups %}
-    {{ render_group(group) }}
-  {% endfor %}
-</div>
-
-<p class="list-more">
-  <a href="{{ url_for('group.index') }}" class="btn btn-success btn-lg list-more-btn">
-    查看更多
-  </a>
-</p>
-
-
-<ul class="nav nav-tabs list-title">
-  <li role="presentation" class="active">
-    <a href="#">生物黑客成员</a>
-  </li>
-</ul>
-
-<div class="company-list">
-  {% for member in members %}
-    {{ render_member(member) }}
-  {% endfor %}
-</div>
-
-<p class="list-more">
-  <a href="{{ url_for('member.index') }}" class="btn btn-success btn-lg list-more-btn">
-    查看更多
-  </a>
-</p>
-
-<div id="barCharts" style="width: 1000px;height:500px;"></div>
 
 
 {% endblock %}
